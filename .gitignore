@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# NyayaAI local artifacts
+node_modules/
+.expo/
+.env
+backups/
