@@ -1,0 +1,27 @@
+name: NyayaAI CI
+on:
+  push:
+  pull_request:
+jobs:
+  backend-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r backend/requirements.txt pytest
+      - run: python -m compileall backend/app
+      - run: python -c "from backend.app.main import app; print(app.title)"
+      - run: pytest backend/tests
+  frontend-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+        working-directory: frontend
+      - run: npm run typecheck
+        working-directory: frontend
